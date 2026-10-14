@@ -6,35 +6,28 @@
 /*   By: spaccaud <spaccaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 14:18:51 by spaccaud          #+#    #+#             */
-/*   Updated: 2026/10/13 15:34:03 by spaccaud         ###   ########.fr       */
+/*   Updated: 2026/10/14 15:00:00 by spaccaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	get_int_size(long nbr)
+static int	get_int_size(long nbr)
 {
-	int	i;
+	int	len;
 
-	i = 0;
-	if (nbr < 0)
+	len = 0;
+	if (nbr <= 0)
 	{
-		nbr = nbr * -1;
-		i++;
+		len++;
+		nbr = -nbr;
 	}
-	while (nbr > 9)
+	while (nbr > 0)
 	{
 		nbr = nbr / 10;
-		i++;
+		len++;
 	}
-	return (i);
-}
-
-int	is_neg(int n)
-{
-	if (n < 0)
-		return (1);
-	return (0);
+	return (len);
 }
 
 char	*ft_itoa(int n)
@@ -44,11 +37,11 @@ char	*ft_itoa(int n)
 	long	nbr;
 
 	nbr = n;
-	len = get_int_size(n);
+	len = get_int_size(nbr);
 	s = malloc(sizeof(char) * (len + 1));
 	if (!s)
 		return (NULL);
-	s[len + 1] = '\0';
+	s[len] = '\0';
 	if (nbr == 0)
 		s[0] = '0';
 	if (nbr < 0)
@@ -58,9 +51,9 @@ char	*ft_itoa(int n)
 	}
 	while (nbr > 0)
 	{
+		len--;
 		s[len] = (nbr % 10) + '0';
 		nbr = nbr / 10;
-		len--;
 	}
 	return (s);
 }
