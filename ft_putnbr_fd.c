@@ -25,15 +25,21 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	int		i;
-	char	*nbr;
+	char	c;
+	long	nbr;
 
-	i = 0;
-	nbr = ft_itoa(n);
-	if (!nbr)
-		return ;
-	ft_putstr_fd(nbr, fd);
-	free(nbr);
+	nbr = n;
+	if (nbr < 0)
+	{
+		write(1, "-", 1);
+		nbr = nbr * -1;
+	}
+	if (nbr > 9)
+	{
+		ft_putnbr_fd(nbr / 10, fd);
+	}
+	c = (nbr % 10) + '0';
+	write(fd, &c, 1);
 }
 
 // int	dict_open(char *file, int __oflag)
