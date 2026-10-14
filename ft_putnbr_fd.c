@@ -31,7 +31,7 @@ void	ft_putnbr_fd(int n, int fd)
 	nbr = n;
 	if (nbr < 0)
 	{
-		write(1, "-", 1);
+		write(fd, "-", 1);
 		nbr = nbr * -1;
 	}
 	if (nbr > 9)
